@@ -19,12 +19,14 @@ public class Player : MonoBehaviour {
     [Header("プレイヤーのジャンプ力")]
     [SerializeField]
     private float jumpPower;
+    private bool isJump;//ジャンプ中か
 
     private Rigidbody2D rigidbody;
 
 	// Use this for initialization
 	void Start () {
         rigidbody = GetComponent<Rigidbody2D>();//自身のRigidbody2Dを取得
+        isJump = false;//ジャンプはしていないことに
     }
 	
 	// Update is called once per frame
@@ -68,9 +70,13 @@ public class Player : MonoBehaviour {
     /// </summary>
     void Jump()
     {
+        if (isJump)
+            return;
+
         if(Input.GetButtonDown("Jump"))
         {
             rigidbody.AddForce(GetJumpPower(), ForceMode2D.Impulse);
+            isJump = true;
         }
     }
     /// <summary>
@@ -82,4 +88,11 @@ public class Player : MonoBehaviour {
         return new Vector2(0, jumpPower);
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "Floor")
+        {
+            isJump = false;
+        }
+    }
 }
