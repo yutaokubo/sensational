@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
     //作成者：大久保
     //最終更新日：2019/07/12
     //最終更新者：大久保
+    //更新内容：近距離攻撃追加
 
 
 
@@ -22,13 +23,26 @@ public class Player : MonoBehaviour {
     private float jumpPower;
     private bool isJump;//ジャンプ中か
 
-    [Header("遠距離攻撃の弾")]
+    [Header("遠距離攻撃の弾オブジェクト")]
     [SerializeField]
     private PlayerBullet bullet;
 
     [Header("遠距離攻撃の弾のスピード")]
     [SerializeField]
     private float bulletSpeed;
+
+    [Header("近距離攻撃の攻撃範囲オブジェクト")]
+    [SerializeField]
+    private PlayerAttackField attackField;
+
+    [Header("中心からの攻撃距離")]
+    [SerializeField]
+    private float attackDistance;
+
+    [Header("近距離攻撃継続時間")]
+    [SerializeField]
+    private float attackTime;
+
 
     private Rigidbody2D rigidbody;
 
@@ -45,6 +59,7 @@ public class Player : MonoBehaviour {
         Move();
         Jump();
         Shot();
+        Attack();
 	}
 
     /// <summary>
@@ -134,6 +149,22 @@ public class Player : MonoBehaviour {
         bullet.speed = direction * bulletSpeed;
         Instantiate(bullet, transform.position, transform.rotation);
     }
+
+    /// <summary>
+    /// 近距離攻撃
+    /// </summary>
+    void Attack()
+    {
+        if(Input.GetButtonDown("Attack"))
+        {
+            attackField.endTime = attackTime;
+            Vector3 distance = new Vector3(attackDistance * direction, 0, 0);
+            var atkField = Instantiate(attackField, transform.position + distance, transform.rotation);
+            atkField.transform.parent = transform;
+        }
+    }
+
+
 
     void OnCollisionEnter2D(Collision2D col)
     {
