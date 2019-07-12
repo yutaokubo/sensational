@@ -16,6 +16,10 @@ public class Player : MonoBehaviour {
     private float Speed;
     private Vector3 velocity;//移動量
 
+    [Header("プレイヤーのジャンプ力")]
+    [SerializeField]
+    private float jumpPower;
+
     private Rigidbody2D rigidbody;
 
 	// Use this for initialization
@@ -27,6 +31,7 @@ public class Player : MonoBehaviour {
 	void Update () {
 
         Move();
+        Jump();
 	}
 
     /// <summary>
@@ -56,6 +61,25 @@ public class Player : MonoBehaviour {
     {
         float x = Input.GetAxis("Horizontal");
         return x;
+    }
+
+    /// <summary>
+    /// ジャンプ処理
+    /// </summary>
+    void Jump()
+    {
+        if(Input.GetButtonDown("Jump"))
+        {
+            rigidbody.AddForce(GetJumpPower(), ForceMode2D.Impulse);
+        }
+    }
+    /// <summary>
+    /// ジャンプ力をVector2で返す
+    /// </summary>
+    /// <returns></returns>
+    Vector2 GetJumpPower()
+    {
+        return new Vector2(0, jumpPower);
     }
 
 }
