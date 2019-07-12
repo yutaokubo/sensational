@@ -13,13 +13,22 @@ public class Player : MonoBehaviour {
 
     [Header("プレイヤーの移動速度")]
     [SerializeField]
-    private float Speed;
+    private float speed;
     private Vector3 velocity;//移動量
+    private float direction;//方向。弾の発射方向を決める
 
     [Header("プレイヤーのジャンプ力")]
     [SerializeField]
     private float jumpPower;
     private bool isJump;//ジャンプ中か
+
+    [Header("遠距離攻撃の弾")]
+    [SerializeField]
+    private PlayerBullet bullet;
+
+    [Header("遠距離攻撃の弾のスピード")]
+    [SerializeField]
+    private float bulletSpeed;
 
     private Rigidbody2D rigidbody;
 
@@ -27,6 +36,7 @@ public class Player : MonoBehaviour {
 	void Start () {
         rigidbody = GetComponent<Rigidbody2D>();//自身のRigidbody2Dを取得
         isJump = false;//ジャンプはしていないことに
+        direction = 1;//方向は右向き
     }
 	
 	// Update is called once per frame
@@ -34,6 +44,7 @@ public class Player : MonoBehaviour {
 
         Move();
         Jump();
+        Shot();
 	}
 
     /// <summary>
@@ -42,7 +53,8 @@ public class Player : MonoBehaviour {
     void Move()
     {
         velocity = GetVelocity();
-        transform.position += velocity * Speed*Time.deltaTime;
+        transform.position += velocity * speed*Time.deltaTime;
+        ChangeDirection();
         //rigidbody.velocity = velocity * Speed;
     }
     
@@ -66,6 +78,21 @@ public class Player : MonoBehaviour {
     }
 
     /// <summary>
+    /// 方向変換
+    /// </summary>
+    void ChangeDirection()
+    {
+        if(GetVelocityX()>0)
+        {
+            direction = 1;
+        }
+        else if(GetVelocityX()<0)
+        {
+            direction = -1;
+        }
+    }
+
+    /// <summary>
     /// ジャンプ処理
     /// </summary>
     void Jump()
@@ -86,6 +113,26 @@ public class Player : MonoBehaviour {
     Vector2 GetJumpPower()
     {
         return new Vector2(0, jumpPower);
+    }
+
+    /// <summary>
+    /// 遠距離攻撃
+    /// </summary>
+    void Shot()
+    {
+        if(Input.GetButtonDown("Shot"))
+        {
+            CreateBullet();
+        }
+    }
+
+    /// <summary>
+    /// 弾生成処理
+    /// </summary>
+    void CreateBullet()
+    {
+        bullet.speed = direction * bulletSpeed;
+        Instantiate(bullet, transform.position, transform.rotation);
     }
 
     void OnCollisionEnter2D(Collision2D col)
