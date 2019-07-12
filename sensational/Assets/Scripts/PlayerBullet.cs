@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBullet : MonoBehaviour {
 
@@ -23,5 +24,10 @@ public class PlayerBullet : MonoBehaviour {
     {
         velocity = new Vector3(speed, 0, 0);
         transform.position += velocity * Time.deltaTime;
+    }
+
+    void OnBecameInvisible()
+    {
+        Destroy(this.gameObject);
     }
 }
