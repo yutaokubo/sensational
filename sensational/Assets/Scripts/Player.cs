@@ -67,8 +67,11 @@ public class Player : MonoBehaviour {
     /// </summary>
     void Move()
     {
-        velocity = GetVelocity();
-        transform.position += velocity * speed*Time.deltaTime;
+        velocity = rigidbody.velocity;
+        velocity.x = GetVelocity().x * speed;
+        //velocity = GetVelocity();
+        //transform.position += velocity * speed*Time.deltaTime;
+        rigidbody.velocity = velocity;
         ChangeDirection();
         //rigidbody.velocity = velocity * Speed;
     }
