@@ -56,9 +56,13 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private Text hpText;
 
-    private int influencePoint;//影響力
+    private float influencePoint;//影響力
     [SerializeField]
     private Text inflenceText;
+
+    [Header("秒間影響力回復量")]
+    [SerializeField]
+    private int inflenceRecoveryAmount;
 
     [Header("影響力のモード、Falseが全体攻撃,trueがバフ")]
     [SerializeField]
@@ -87,6 +91,7 @@ public class Player : MonoBehaviour {
         Shot();
         Attack();
         InflenceAttack();
+        InflencePointUpdate();
 	}
 
     /// <summary>
@@ -217,19 +222,44 @@ public class Player : MonoBehaviour {
     /// 影響力増加
     /// </summary>
     /// <param name="num">増加量</param>
-    public void AddInflencePoint(int num)
+    public void AddInflencePoint(float num)
     {
         influencePoint += num;
         inflenceText.text = influencePoint + "";
+
+        if (influencePoint > 100)
+            SetInflencePoint(100);
+        if (influencePoint < 0)
+            SetInflencePoint(0);
     }
     /// <summary>
     /// 影響力設定
     /// </summary>
     /// <param name="num">影響力</param>
-    public void SetInflencePoint(int num)
+    public void SetInflencePoint(float num)
     {
         influencePoint = num;
         inflenceText.text = influencePoint + "";
+
+        if (influencePoint > 100)
+            SetInflencePoint(100);
+        if (influencePoint < 0)
+            SetInflencePoint(0);
+    }
+
+    /// <summary>
+    /// 影響力の秒間回復
+    /// </summary>
+    void InflencePointUpdate()
+    {
+        if (influencePoint >= 100)
+            return;
+
+        AddInflencePoint((inflenceRecoveryAmount * Time.deltaTime));
+        if(influencePoint>100)
+        {
+            SetInflencePoint(100);
+        }
     }
 
     /// <summary>
