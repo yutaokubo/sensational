@@ -7,9 +7,9 @@ public class Player : MonoBehaviour {
 
     //用途：プレイヤー全般のスクリプト
     //作成者：大久保
-    //最終更新日：2019/07/12
+    //最終更新日：2019/08/04
     //最終更新者：大久保
-    //更新内容：近距離攻撃追加
+    //更新内容：バフ時処理追加
 
 
 
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
     private float jumpPower;
     [Header("バフ後のジャンプ力")]
     [SerializeField]
-    private float byffJumpPower;
+    private float buffJumpPower;
     private float nowJumpPower;
     private bool isJump;//ジャンプ中か
 
@@ -62,11 +62,17 @@ public class Player : MonoBehaviour {
 
     [Header("秒間影響力回復量")]
     [SerializeField]
-    private int inflenceRecoveryAmount;
+    private float inflenceRecoveryAmount;
+
+    [Header("バフ時影響力減少量")]
+    [SerializeField]
+    private float buffTimeRemoveInflencePoint;
 
     [Header("影響力のモード、Falseが全体攻撃,trueがバフ")]
     [SerializeField]
     private static bool influenceMode;
+
+    private bool isBuff;
 
 
     private Rigidbody2D rigidbody;
@@ -79,8 +85,9 @@ public class Player : MonoBehaviour {
         SetHP(100);//体力は100に
         SetInflencePoint(100);//影響力は100に
         influenceMode = true;//影響力はバフに
-        nowSpeed = speed;//スピードは通常時のものに
-        nowJumpPower = jumpPower;
+        nowSpeed = speed;//スピードを通常時のものに
+        nowJumpPower = jumpPower;//ジャンプ力を通常時のものに
+        isBuff = false;
     }
 	
 	// Update is called once per frame
@@ -92,6 +99,7 @@ public class Player : MonoBehaviour {
         Attack();
         InflenceAttack();
         InflencePointUpdate();
+        BuffTimeUpdate();
 	}
 
     /// <summary>
@@ -285,9 +293,38 @@ public class Player : MonoBehaviour {
     /// </summary>
     void InflenceBuff()
     {
+        if (isBuff)
+            return;
+
         nowSpeed = buffSpeed;
-        nowJumpPower = jumpPower;
+        nowJumpPower = buffJumpPower;
         AddInflencePoint(-50);
+        isBuff = true;
+    }
+
+    /// <summary>
+    /// バフがかかっている時の処理
+    /// </summary>
+    void BuffTimeUpdate()
+    {
+        if (!isBuff)
+            return;
+
+        AddInflencePoint((-inflenceRecoveryAmount - buffTimeRemoveInflencePoint) * Time.deltaTime);
+        if(influencePoint<=0)
+        {
+            buffTimeEnd();
+        }
+    }
+
+    /// <summary>
+    /// バフを解除する時の処理
+    /// </summary>
+    void buffTimeEnd()
+    {
+        isBuff = false;
+        nowSpeed = speed;
+        nowJumpPower = jumpPower;
     }
 
 

@@ -411,6 +411,16 @@ Prefab:
       propertyPath: inflenceRecoveryAmount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+        type: 2}
+      propertyPath: buffTimeRemoveInflencePoint
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+        type: 2}
+      propertyPath: buffJumpPower
+      value: 7.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237a30f4ab94d224ebec37cbd0e29ada, type: 2}
   m_IsPrefabAsset: 0
