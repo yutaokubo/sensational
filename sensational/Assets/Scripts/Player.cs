@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -43,6 +44,14 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private float attackTime;
 
+    private int hp;//体力
+    [SerializeField]
+    private Text hpText;
+
+    private int influencePoint;//影響力
+    [SerializeField]
+    private Text inflenceText;
+
 
     private Rigidbody2D rigidbody;
 
@@ -51,6 +60,8 @@ public class Player : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody2D>();//自身のRigidbody2Dを取得
         isJump = false;//ジャンプはしていないことに
         direction = 1;//方向は右向き
+        SetHP(100);//体力は100に
+        SetInflencePoint(100);//影響力は100に
     }
 	
 	// Update is called once per frame
@@ -165,6 +176,44 @@ public class Player : MonoBehaviour {
             var atkField = Instantiate(attackField, transform.position + distance, transform.rotation);
             atkField.transform.parent = transform;
         }
+    }
+
+    /// <summary>
+    /// 体力増加
+    /// </summary>
+    /// <param name="num">増加量</param>
+    public void AddHP(int num)
+    {
+        hp += num;
+        hpText.text = hp+""; 
+    }
+    /// <summary>
+    /// 体力設定
+    /// </summary>
+    /// <param name="num">体力</param>
+    public void SetHP(int num)
+    {
+        hp = num;
+        hpText.text = hp + "";
+    }
+
+    /// <summary>
+    /// 影響力増加
+    /// </summary>
+    /// <param name="num">増加量</param>
+    public void AddInflencePoint(int num)
+    {
+        influencePoint += num;
+        inflenceText.text = influencePoint + "";
+    }
+    /// <summary>
+    /// 影響力設定
+    /// </summary>
+    /// <param name="num">影響力</param>
+    public void SetInflencePoint(int num)
+    {
+        influencePoint = num;
+        inflenceText.text = influencePoint + "";
     }
 
 
