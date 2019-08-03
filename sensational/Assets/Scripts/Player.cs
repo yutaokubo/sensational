@@ -13,15 +13,23 @@ public class Player : MonoBehaviour {
 
 
 
-    [Header("プレイヤーの移動速度")]
+    [Header("通常時の移動速度")]
     [SerializeField]
     private float speed;
+    [Header("バフ後の移動速度")]
+    [SerializeField]
+    private float buffSpeed;
+    private float nowSpeed;//現在の移動速度
     private Vector3 velocity;//移動量
     private float direction;//方向。弾の発射方向を決める
 
-    [Header("プレイヤーのジャンプ力")]
+    [Header("通常時のジャンプ力")]
     [SerializeField]
     private float jumpPower;
+    [Header("バフ後のジャンプ力")]
+    [SerializeField]
+    private float byffJumpPower;
+    private float nowJumpPower;
     private bool isJump;//ジャンプ中か
 
     [Header("遠距離攻撃の弾オブジェクト")]
@@ -52,6 +60,10 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private Text inflenceText;
 
+    [Header("影響力のモード、Falseが全体攻撃,trueがバフ")]
+    [SerializeField]
+    private static bool influenceMode;
+
 
     private Rigidbody2D rigidbody;
 
@@ -62,6 +74,9 @@ public class Player : MonoBehaviour {
         direction = 1;//方向は右向き
         SetHP(100);//体力は100に
         SetInflencePoint(100);//影響力は100に
+        influenceMode = true;//影響力はバフに
+        nowSpeed = speed;//スピードは通常時のものに
+        nowJumpPower = jumpPower;
     }
 	
 	// Update is called once per frame
@@ -71,6 +86,7 @@ public class Player : MonoBehaviour {
         Jump();
         Shot();
         Attack();
+        InflenceAttack();
 	}
 
     /// <summary>
@@ -79,7 +95,7 @@ public class Player : MonoBehaviour {
     void Move()
     {
         velocity = rigidbody.velocity;
-        velocity.x = GetVelocity().x * speed;
+        velocity.x = GetVelocity().x * nowSpeed;
         //velocity = GetVelocity();
         //transform.position += velocity * speed*Time.deltaTime;
         rigidbody.velocity = velocity;
@@ -141,7 +157,7 @@ public class Player : MonoBehaviour {
     /// <returns></returns>
     Vector2 GetJumpPower()
     {
-        return new Vector2(0, jumpPower);
+        return new Vector2(0, nowJumpPower);
     }
 
     /// <summary>
@@ -214,6 +230,34 @@ public class Player : MonoBehaviour {
     {
         influencePoint = num;
         inflenceText.text = influencePoint + "";
+    }
+
+    /// <summary>
+    /// 影響力攻撃
+    /// </summary>
+    void InflenceAttack()
+    {
+        if (influencePoint < 50)//影響力が50未満なら使えない
+            return;
+
+        if(Input.GetButtonDown("InflenceAttack"))
+        {
+            if (!influenceMode)//全体攻撃
+            { }
+            else//バフ
+            {
+                InflenceBuff();
+            }
+        }
+    }
+    /// <summary>
+    /// 影響力によるバフ
+    /// </summary>
+    void InflenceBuff()
+    {
+        nowSpeed = buffSpeed;
+        nowJumpPower = jumpPower;
+        AddInflencePoint(-50);
     }
 
 
