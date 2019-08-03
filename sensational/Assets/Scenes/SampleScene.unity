@@ -396,6 +396,16 @@ Prefab:
       propertyPath: inflenceText
       value: 
       objectReference: {fileID: 1279521471}
+    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+        type: 2}
+      propertyPath: buffSpeed
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+        type: 2}
+      propertyPath: byffJumpPower
+      value: 7.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237a30f4ab94d224ebec37cbd0e29ada, type: 2}
   m_IsPrefabAsset: 0
