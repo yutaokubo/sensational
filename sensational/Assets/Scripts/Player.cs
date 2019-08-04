@@ -72,7 +72,9 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private static bool influenceMode;
 
-    private bool isBuff;
+    private bool isBuff;//影響力によるバフがかかっているか
+
+    private bool isDead;//死んでいるかどうか
 
 
     private Rigidbody2D rigidbody;
@@ -87,7 +89,8 @@ public class Player : MonoBehaviour {
         influenceMode = true;//影響力はバフに
         nowSpeed = speed;//スピードを通常時のものに
         nowJumpPower = jumpPower;//ジャンプ力を通常時のものに
-        isBuff = false;
+        isBuff = false;//バフはかけない
+        isDead = false;//死んでいない
     }
 	
 	// Update is called once per frame
@@ -107,13 +110,13 @@ public class Player : MonoBehaviour {
     /// </summary>
     void Move()
     {
+        if (isDead)
+            return;
+
         velocity = rigidbody.velocity;
         velocity.x = GetVelocity().x * nowSpeed;
-        //velocity = GetVelocity();
-        //transform.position += velocity * speed*Time.deltaTime;
         rigidbody.velocity = velocity;
         ChangeDirection();
-        //rigidbody.velocity = velocity * Speed;
     }
     
     /// <summary>
@@ -155,6 +158,8 @@ public class Player : MonoBehaviour {
     /// </summary>
     void Jump()
     {
+        if (isDead)
+            return;
         if (isJump)
             return;
 
@@ -178,6 +183,8 @@ public class Player : MonoBehaviour {
     /// </summary>
     void Shot()
     {
+        if (isDead)
+            return;
         if(Input.GetButtonDown("Shot"))
         {
             CreateBullet();
@@ -198,6 +205,8 @@ public class Player : MonoBehaviour {
     /// </summary>
     void Attack()
     {
+        if (isDead)
+            return;
         if(Input.GetButtonDown("Attack"))
         {
             attackField.endTime = attackTime;
@@ -214,7 +223,9 @@ public class Player : MonoBehaviour {
     public void AddHP(int num)
     {
         hp += num;
-        hpText.text = hp+""; 
+        hpText.text = hp+"";
+
+        HPLimit();
     }
     /// <summary>
     /// 体力設定
@@ -224,6 +235,23 @@ public class Player : MonoBehaviour {
     {
         hp = num;
         hpText.text = hp + "";
+
+        HPLimit();
+    }
+    /// <summary>
+    /// 体力の範囲制限
+    /// </summary>
+    void HPLimit()
+    {
+        if(hp>100)
+        {
+            hp = 100;
+        }
+        if(hp<=0)
+        {
+            hp = 0;
+            isDead = true;
+        }
     }
 
     /// <summary>
@@ -235,10 +263,7 @@ public class Player : MonoBehaviour {
         influencePoint += num;
         inflenceText.text = influencePoint + "";
 
-        if (influencePoint > 100)
-            SetInflencePoint(100);
-        if (influencePoint < 0)
-            SetInflencePoint(0);
+        InflencePointLimit();
     }
     /// <summary>
     /// 影響力設定
@@ -249,6 +274,13 @@ public class Player : MonoBehaviour {
         influencePoint = num;
         inflenceText.text = influencePoint + "";
 
+        InflencePointLimit();
+    }
+    /// <summary>
+    /// 影響力の範囲制限
+    /// </summary>
+    void InflencePointLimit()
+    {
         if (influencePoint > 100)
             SetInflencePoint(100);
         if (influencePoint < 0)
@@ -260,6 +292,8 @@ public class Player : MonoBehaviour {
     /// </summary>
     void InflencePointUpdate()
     {
+        if (isDead)
+            return;
         if (influencePoint >= 100)
             return;
 
@@ -275,6 +309,8 @@ public class Player : MonoBehaviour {
     /// </summary>
     void InflenceAttack()
     {
+        if (isDead)
+            return;
         if (influencePoint < 50)//影響力が50未満なら使えない
             return;
 
@@ -307,6 +343,8 @@ public class Player : MonoBehaviour {
     /// </summary>
     void BuffTimeUpdate()
     {
+        if (isDead)
+            return;
         if (!isBuff)
             return;
 
@@ -327,6 +365,15 @@ public class Player : MonoBehaviour {
         nowJumpPower = jumpPower;
     }
 
+    /// <summary>
+    /// 死んでいるかどうか
+    /// </summary>
+    /// <returns></returns>
+    public bool IsDead()
+    {
+        return isDead;
+    }
+
 
 
     void OnCollisionEnter2D(Collision2D col)
@@ -334,6 +381,10 @@ public class Player : MonoBehaviour {
         if(col.gameObject.tag == "Floor")
         {
             isJump = false;
+        }
+        if(col.gameObject.tag == "GameOverArea")
+        {
+            SetHP(0);
         }
     }
 }
