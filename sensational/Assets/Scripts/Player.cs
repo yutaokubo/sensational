@@ -70,7 +70,7 @@ public class Player : MonoBehaviour {
 
     [Header("影響力のモード、Falseが全体攻撃,trueがバフ")]
     [SerializeField]
-    private static bool influenceMode;
+    public static bool influenceMode;
 
     private bool isBuff;//影響力によるバフがかかっているか
 
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour {
         direction = 1;//方向は右向き
         SetHP(100);//体力は100に
         SetInflencePoint(100);//影響力は100に
-        influenceMode = true;//影響力はバフに
+        //influenceMode = true;//影響力はバフに
         nowSpeed = speed;//スピードを通常時のものに
         nowJumpPower = jumpPower;//ジャンプ力を通常時のものに
         isBuff = false;//バフはかけない
