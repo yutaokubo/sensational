@@ -23,6 +23,7 @@ public abstract class EnemyBulletBase : MonoBehaviour
     //ダメージ
     public virtual void AddDamage()
     {
+        Destroy(gameObject);
         PlayerManager.Instance.PlayerInstance.AddHP(damage*-1);
     }
 }
