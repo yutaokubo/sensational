@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - GameOverArea
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
