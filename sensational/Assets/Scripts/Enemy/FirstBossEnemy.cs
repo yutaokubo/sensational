@@ -6,12 +6,6 @@ using UnityEngine;
 
 public class FirstBossEnemy : EnemyBase
 {
-    [System.Serializable]
-    private struct BulletStruct
-    {
-        public EnemyBulletBase bulletBase;
-        public Vector2 position;
-    }
     [SerializeField]
     private float shotTiming = 1;//弾のタイミング
     [SerializeField]

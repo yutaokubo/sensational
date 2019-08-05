@@ -9,14 +9,6 @@ public class EnemyNormalBullet : EnemyBulletBase
     {
         Move();
 	}
-    /// <summary>
-    /// 移動処理
-    /// </summary>
-    void Move()
-    {
-        velocity = new Vector3(speed, 0, 0);
-        transform.position += velocity * Time.deltaTime;
-    }
 
     void OnBecameInvisible()
     {

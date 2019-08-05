@@ -14,4 +14,11 @@ public abstract class EnemyBase : MonoBehaviour
         if(status == null)return;
         hp = status.HP;
     }
+
+    [System.Serializable]
+    protected struct BulletStruct
+    {
+        public EnemyBulletBase bulletBase;
+        public Vector2 position;
+    }
 }

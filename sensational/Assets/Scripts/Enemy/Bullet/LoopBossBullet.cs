@@ -9,24 +9,17 @@ public class LoopBossBullet : EnemyBulletBase
     private int loopTimes = 1;
     [Header("ループ端の位置調整（0で画面端）"), SerializeField]
     private float plusEdge = 0;
-    [Header("回転するかどうか"), SerializeField]
-    private bool rotationFlag = true;
 
     private int loopNum = 0;
-    private float rotationSpeed = 0;
 
     private void Start() 
 	{
-        rotationSpeed = Random.Range(2.0f,5.0f);
-        if(Random.Range(0,2)==1)
-        {
-            rotationSpeed *= -1;
-        }
         loopNum = 0;
     }
 
     private void Update () 
 	{
+        velocity = new Vector3(speed, 0, 0);
         Move();
         OneLoopMove();
     }
@@ -47,17 +40,6 @@ public class LoopBossBullet : EnemyBulletBase
 		if(loopNum>loopTimes)
 		{
             Destroy(gameObject);
-        }
-    }
-    //移動
-    private void Move()
-    {
-        velocity = new Vector3(speed, 0, 0);
-        transform.position += velocity * Time.deltaTime;
-        //回転
-        if (rotationFlag)
-        {
-            transform.Rotate(new Vector3(0, 0, rotationSpeed));
         }
     }
 
