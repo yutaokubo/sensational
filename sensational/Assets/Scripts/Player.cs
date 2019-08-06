@@ -386,5 +386,10 @@ public class Player : MonoBehaviour {
         {
             SetHP(0);
         }
+
+        if(col.gameObject.tag == "EnemyBullet")
+        {
+            col.gameObject.GetComponent<EnemyBulletBase>().AddDamage();
+        }
     }
 }

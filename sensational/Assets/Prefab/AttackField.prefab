@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114930291091227112}
   m_Layer: 0
   m_Name: AttackField
-  m_TagString: Untagged
+  m_TagString: PlayerAttackField
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,4 +67,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c90e60a5fec484e835fabd2bfc8d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endTime: 3
+  endTime: 1
