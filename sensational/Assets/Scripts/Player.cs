@@ -53,20 +53,24 @@ public class Player : MonoBehaviour {
     private float attackTime;
 
     private int hp;//体力
+    //[SerializeField]
+    //private Text hpText;
     [SerializeField]
-    private Text hpText;
+    private Image hpGauge;
 
     private float influencePoint;//影響力
+    //[SerializeField]
+    //private Text influenceText;
     [SerializeField]
-    private Text inflenceText;
+    private Image influenceGauge;
 
     [Header("秒間影響力回復量")]
     [SerializeField]
-    private float inflenceRecoveryAmount;
+    private float influenceRecoveryAmount;
 
     [Header("バフ時影響力減少量")]
     [SerializeField]
-    private float buffTimeRemoveInflencePoint;
+    private float buffTimeRemoveInfluencePoint;
 
     [Header("影響力のモード、Falseが全体攻撃,trueがバフ")]
     [SerializeField]
@@ -85,7 +89,7 @@ public class Player : MonoBehaviour {
         isJump = false;//ジャンプはしていないことに
         direction = 1;//方向は右向き
         SetHP(100);//体力は100に
-        SetInflencePoint(100);//影響力は100に
+        SetInfluencePoint(100);//影響力は100に
         //influenceMode = true;//影響力はバフに
         nowSpeed = speed;//スピードを通常時のものに
         nowJumpPower = jumpPower;//ジャンプ力を通常時のものに
@@ -100,8 +104,8 @@ public class Player : MonoBehaviour {
         Jump();
         Shot();
         Attack();
-        InflenceAttack();
-        InflencePointUpdate();
+        InfluenceAttack();
+        InfluencePointUpdate();
         BuffTimeUpdate();
 	}
 
@@ -223,9 +227,10 @@ public class Player : MonoBehaviour {
     public void AddHP(int num)
     {
         hp += num;
-        hpText.text = hp+"";
 
         HPLimit();
+        HPGaugeVary();
+        //hpText.text = hp + "";
     }
     /// <summary>
     /// 体力設定
@@ -234,9 +239,10 @@ public class Player : MonoBehaviour {
     public void SetHP(int num)
     {
         hp = num;
-        hpText.text = hp + "";
 
         HPLimit();
+        HPGaugeVary();
+        //hpText.text = hp + "";
     }
     /// <summary>
     /// 体力の範囲制限
@@ -253,61 +259,77 @@ public class Player : MonoBehaviour {
             isDead = true;
         }
     }
+    /// <summary>
+    /// 体力ゲージの長さを数値に対応させる
+    /// </summary>
+    void HPGaugeVary()
+    {
+        hpGauge.fillAmount = hp/100f;
+    }
 
     /// <summary>
     /// 影響力増加
     /// </summary>
     /// <param name="num">増加量</param>
-    public void AddInflencePoint(float num)
+    public void AddInfluencePoint(float num)
     {
         influencePoint += num;
-        inflenceText.text = influencePoint + "";
 
-        InflencePointLimit();
+        InfluencePointLimit();
+        InfluencePointGaugeVary();
+        //influenceText.text = influencePoint + "";
     }
     /// <summary>
     /// 影響力設定
     /// </summary>
     /// <param name="num">影響力</param>
-    public void SetInflencePoint(float num)
+    public void SetInfluencePoint(float num)
     {
         influencePoint = num;
-        inflenceText.text = influencePoint + "";
 
-        InflencePointLimit();
+        InfluencePointLimit();
+        InfluencePointGaugeVary();
+        //influenceText.text = influencePoint + "";
     }
     /// <summary>
     /// 影響力の範囲制限
     /// </summary>
-    void InflencePointLimit()
+    void InfluencePointLimit()
     {
         if (influencePoint > 100)
-            SetInflencePoint(100);
+            SetInfluencePoint(100);
         if (influencePoint < 0)
-            SetInflencePoint(0);
+            SetInfluencePoint(0);
+    }
+    /// <summary>
+    /// 影響力のゲージの長さを数値に対応させる
+    /// </summary>
+    void InfluencePointGaugeVary()
+    {
+        influenceGauge.fillAmount = influencePoint / 100f;
     }
 
     /// <summary>
     /// 影響力の秒間回復
     /// </summary>
-    void InflencePointUpdate()
+    void InfluencePointUpdate()
     {
         if (isDead)
             return;
         if (influencePoint >= 100)
             return;
 
-        AddInflencePoint((inflenceRecoveryAmount * Time.deltaTime));
+        AddInfluencePoint((influenceRecoveryAmount * Time.deltaTime));
         if(influencePoint>100)
         {
-            SetInflencePoint(100);
+            SetInfluencePoint(100);
         }
     }
 
     /// <summary>
     /// 影響力攻撃
     /// </summary>
-    void InflenceAttack()
+    void InfluenceAttack()
     {
         if (isDead)
             return;
@@ -320,21 +342,21 @@ public class Player : MonoBehaviour {
             { }
             else//バフ
             {
-                InflenceBuff();
+                InfluenceBuff();
             }
         }
     }
     /// <summary>
     /// 影響力によるバフ
     /// </summary>
-    void InflenceBuff()
+    void InfluenceBuff()
     {
         if (isBuff)
             return;
 
         nowSpeed = buffSpeed;
         nowJumpPower = buffJumpPower;
-        AddInflencePoint(-50);
+        AddInfluencePoint(-50);
         isBuff = true;
     }
 
@@ -348,7 +370,7 @@ public class Player : MonoBehaviour {
         if (!isBuff)
             return;
 
-        AddInflencePoint((-inflenceRecoveryAmount - buffTimeRemoveInflencePoint) * Time.deltaTime);
+        AddInfluencePoint((-influenceRecoveryAmount - buffTimeRemoveInfluencePoint) * Time.deltaTime);
         if(influencePoint<=0)
         {
             buffTimeEnd();

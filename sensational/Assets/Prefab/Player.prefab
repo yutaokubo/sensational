@@ -100,13 +100,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  buffSpeed: 7.5
   jumpPower: 5
+  buffJumpPower: 7.5
   bullet: {fileID: 114190341693612624, guid: 2c3fe85e9ea98fc44aa5102285020228, type: 2}
   bulletSpeed: 10
   attackField: {fileID: 114930291091227112, guid: 9f5add806a7f63541bcc3cfce9917660,
     type: 2}
   attackDistance: 0.5
   attackTime: 1
+  hpGauge: {fileID: 0}
+  influenceGauge: {fileID: 0}
+  influenceRecoveryAmount: 2
+  buffTimeRemoveInfluencePoint: 2
 --- !u!212 &212855923458001902
 SpriteRenderer:
   m_ObjectHideFlags: 1

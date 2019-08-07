@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4932577258343228}
   - component: {fileID: 212754093915048572}
   - component: {fileID: 114793287280810880}
+  - component: {fileID: 58580983636559032}
   m_Layer: 0
   m_Name: FinalBossBullet
   m_TagString: Untagged
@@ -41,6 +42,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58580983636559032
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013485504368128}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.4
 --- !u!114 &114793287280810880
 MonoBehaviour:
   m_ObjectHideFlags: 1
