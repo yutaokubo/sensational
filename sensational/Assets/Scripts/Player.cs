@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
     private float nowSpeed;//現在の移動速度
     private Vector3 velocity;//移動量
     private float direction;//方向。弾の発射方向を決める
+    private float defaultScaleX;//初期のスケールXの数値。画像の方向切り替え用
 
     [Header("通常時のジャンプ力")]
     [SerializeField]
@@ -88,6 +89,7 @@ public class Player : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody2D>();//自身のRigidbody2Dを取得
         isJump = false;//ジャンプはしていないことに
         direction = 1;//方向は右向き
+        defaultScaleX = transform.localScale.x;//スケールX初期値獲得
         SetHP(100);//体力は100に
         SetInfluencePoint(100);//影響力は100に
         //influenceMode = true;//影響力はバフに
@@ -155,6 +157,16 @@ public class Player : MonoBehaviour {
         {
             direction = -1;
         }
+        ChangeSpriteDirection();
+    }
+    /// <summary>
+    /// プレイヤー画像の方向転換
+    /// </summary>
+    void ChangeSpriteDirection()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = defaultScaleX *direction;
+        transform.localScale = scale;
     }
 
     /// <summary>
