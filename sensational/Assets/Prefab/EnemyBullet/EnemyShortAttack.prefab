@@ -78,10 +78,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de26a607fd5003489a6d31977504c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationFlag: 0
+  rotationFlag: 1
   damage: 5
   speed: 0
   velocity: {x: 0, y: 0, z: 0}
+  deleteTime: 0.5
 --- !u!212 &212407886026911234
 SpriteRenderer:
   m_ObjectHideFlags: 1
