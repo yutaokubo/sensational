@@ -46,4 +46,12 @@ public abstract class EnemyBulletBase : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, rotationSpeed));
         }
     }
+    protected void RotationOnly()
+    {
+        //回転
+        if (rotationFlag)
+        {
+            transform.Rotate(new Vector3(0, 0, rotationSpeed));
+        }
+    }
 }

@@ -14,5 +14,8 @@ public class FinalBossBullet : EnemyBulletBase
     {
         Move();
 	}
-
+    void OnBecameInvisible()
+    {
+        Destroy(this.gameObject);
+    }
 }
