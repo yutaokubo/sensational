@@ -52,6 +52,7 @@ public class Player : MonoBehaviour {
     [Header("近距離攻撃継続時間")]
     [SerializeField]
     private float attackTime;
+    private float attackTimer;//攻撃判定用
 
     private int hp;//体力
     //[SerializeField]
@@ -81,6 +82,10 @@ public class Player : MonoBehaviour {
 
     private bool isDead;//死んでいるかどうか
 
+    [SerializeField]
+    private Sprite attackSprite;//攻撃時画像
+    private Sprite baseSprite;//通常時画像
+
 
     private Rigidbody2D rigidbody;
 
@@ -97,6 +102,7 @@ public class Player : MonoBehaviour {
         nowJumpPower = jumpPower;//ジャンプ力を通常時のものに
         isBuff = false;//バフはかけない
         isDead = false;//死んでいない
+        baseSprite = transform.GetComponent<SpriteRenderer>().sprite;//通常時画像は現在のものに
     }
 	
 	// Update is called once per frame
@@ -106,6 +112,7 @@ public class Player : MonoBehaviour {
         Jump();
         Shot();
         Attack();
+        AttackTimerCount();
         InfluenceAttack();
         InfluencePointUpdate();
         BuffTimeUpdate();
@@ -223,12 +230,29 @@ public class Player : MonoBehaviour {
     {
         if (isDead)
             return;
-        if(Input.GetButtonDown("Attack"))
+        if(Input.GetButtonDown("Attack")&&attackTimer<=0)
         {
             attackField.endTime = attackTime;
             Vector3 distance = new Vector3(attackDistance * direction, 0, 0);
             var atkField = Instantiate(attackField, transform.position + distance, transform.rotation);
             atkField.transform.parent = transform;
+
+            transform.GetComponent<SpriteRenderer>().sprite = attackSprite;
+            attackTimer = attackTime;
+        }
+    }
+    /// <summary>
+    /// 攻撃時間用タイマー更新
+    /// </summary>
+    void AttackTimerCount()
+    {
+        if(attackTimer>0)
+        {
+            attackTimer -= Time.deltaTime;
+        }
+        if(attackTimer<=0)
+        {
+            transform.GetComponent<SpriteRenderer>().sprite = baseSprite;
         }
     }
 
