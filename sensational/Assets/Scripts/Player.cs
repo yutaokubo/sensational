@@ -7,9 +7,9 @@ public class Player : MonoBehaviour {
 
     //用途：プレイヤー全般のスクリプト
     //作成者：大久保
-    //最終更新日：2019/08/04
+    //最終更新日：2019/08/10
     //最終更新者：大久保
-    //更新内容：バフ時処理追加
+    //更新内容：全体攻撃追加
 
 
 
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour {
     [Header("バフ後のジャンプ力")]
     [SerializeField]
     private float buffJumpPower;
-    private float nowJumpPower;
+    private float nowJumpPower;//現在のジャンプ力
     private bool isJump;//ジャンプ中か
 
     [Header("遠距離攻撃の弾オブジェクト")]
@@ -40,10 +40,20 @@ public class Player : MonoBehaviour {
     [Header("遠距離攻撃の弾のスピード")]
     [SerializeField]
     private float bulletSpeed;
+    private int nowBulletPower;//現在の弾の威力
+    [Header("通常時の弾の威力")]
+    [SerializeField]
+    private int bulletPower;
+    [Header("バフ時の弾の威力")]
+    [SerializeField]
+    private int buffBulletPower;
 
     [Header("近距離攻撃の攻撃範囲オブジェクト")]
     [SerializeField]
     private PlayerAttackField attackField;
+    [Header("画面全体攻撃の攻撃範囲オブジェクト")]
+    [SerializeField]
+    private PlayerAttackField influenceAttackField;
 
     [Header("中心からの攻撃距離")]
     [SerializeField]
@@ -53,6 +63,18 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private float attackTime;
     private float attackTimer;//攻撃判定用
+
+    private int nowAttackPower;//現在の近接攻撃力
+    [Header("通常の近接攻撃力")]
+    [SerializeField]
+    private int attackPower;
+    [Header("バフ時の近接攻撃力")]
+    [SerializeField]
+    private int buffAttackPower;
+
+    [Header("画面全体攻撃の攻撃力")]
+    [SerializeField]
+    private int influenceAttackPower;
 
     private int hp;//体力
     //[SerializeField]
@@ -100,6 +122,8 @@ public class Player : MonoBehaviour {
         //influenceMode = true;//影響力はバフに
         nowSpeed = speed;//スピードを通常時のものに
         nowJumpPower = jumpPower;//ジャンプ力を通常時のものに
+        nowAttackPower = attackPower;//近接攻撃力は通常時のものに
+        nowBulletPower = bulletPower;//弾の威力は通常時のものに
         isBuff = false;//バフはかけない
         isDead = false;//死んでいない
         baseSprite = transform.GetComponent<SpriteRenderer>().sprite;//通常時画像は現在のものに
@@ -113,7 +137,7 @@ public class Player : MonoBehaviour {
         Shot();
         Attack();
         AttackTimerCount();
-        InfluenceAttack();
+        InfluenceAbility();
         InfluencePointUpdate();
         BuffTimeUpdate();
 	}
@@ -220,6 +244,7 @@ public class Player : MonoBehaviour {
     void CreateBullet()
     {
         bullet.speed = direction * bulletSpeed;
+        bullet.power = nowBulletPower;
         Instantiate(bullet, transform.position, transform.rotation);
     }
 
@@ -233,6 +258,7 @@ public class Player : MonoBehaviour {
         if(Input.GetButtonDown("Attack")&&attackTimer<=0)
         {
             attackField.endTime = attackTime;
+            attackField.power = nowAttackPower;
             Vector3 distance = new Vector3(attackDistance * direction, 0, 0);
             var atkField = Instantiate(attackField, transform.position + distance, transform.rotation);
             atkField.transform.parent = transform;
@@ -363,9 +389,9 @@ public class Player : MonoBehaviour {
     }
 
     /// <summary>
-    /// 影響力攻撃
+    /// 影響力使用
     /// </summary>
-    void InfluenceAttack()
+    void InfluenceAbility()
     {
         if (isDead)
             return;
@@ -375,12 +401,26 @@ public class Player : MonoBehaviour {
         if(Input.GetButtonDown("InflenceAttack"))
         {
             if (!influenceMode)//全体攻撃
-            { }
+            {
+                InfluenceAttack();
+            }
             else//バフ
             {
                 InfluenceBuff();
             }
         }
+    }
+    /// <summary>
+    /// 影響力による画面全体攻撃
+    /// </summary>
+    void InfluenceAttack()
+    {
+        influenceAttackField.endTime = 0.3f;
+        influenceAttackField.power = influenceAttackPower;
+        Vector3 distance = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+        var atkField = Instantiate(influenceAttackField,distance, transform.rotation);
+        AddInfluencePoint(-50);
+
     }
     /// <summary>
     /// 影響力によるバフ
@@ -392,6 +432,8 @@ public class Player : MonoBehaviour {
 
         nowSpeed = buffSpeed;
         nowJumpPower = buffJumpPower;
+        nowAttackPower = buffAttackPower;
+        nowBulletPower = buffBulletPower;
         AddInfluencePoint(-50);
         isBuff = true;
     }
@@ -421,6 +463,8 @@ public class Player : MonoBehaviour {
         isBuff = false;
         nowSpeed = speed;
         nowJumpPower = jumpPower;
+        nowAttackPower = attackPower;
+        nowBulletPower = bulletPower;
     }
 
     /// <summary>

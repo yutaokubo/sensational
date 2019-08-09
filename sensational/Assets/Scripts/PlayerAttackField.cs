@@ -11,6 +11,7 @@ public class PlayerAttackField : MonoBehaviour {
     //更新内容：作成
 
     public float endTime;//判定が消えるまでの秒数
+    public int power;//攻撃力
     private float endTimer;//判定が消えるまでを計るタイマー
 
 

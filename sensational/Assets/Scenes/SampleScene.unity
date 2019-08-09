@@ -402,11 +402,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 50419473672862164, guid: 6663a2d095eebad43b0b5d9f6fd8db06,
-        type: 2}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 073274d6d6da9114baeebe99324f0a2f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6663a2d095eebad43b0b5d9f6fd8db06, type: 2}
   m_IsPrefabAsset: 0
@@ -459,21 +454,36 @@ Prefab:
       propertyPath: influenceGauge
       value: 
       objectReference: {fileID: 1186375905}
+    - target: {fileID: 212855923458001902, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
         type: 2}
-      propertyPath: attackSprite
+      propertyPath: influenceAttackField
       value: 
-      objectReference: {fileID: 21300000, guid: 3658af1d38977ad4ea1fe18c72735687,
-        type: 3}
-    - target: {fileID: 61077883919674894, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+      objectReference: {fileID: 114320289925375306, guid: 181e160c638b29b47a45f794a299096b,
         type: 2}
-      propertyPath: m_Offset.y
-      value: -0.005912453
+    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+        type: 2}
+      propertyPath: buffBulletPower
+      value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 61077883919674894, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
         type: 2}
-      propertyPath: m_Size.y
-      value: 0.60485214
+      propertyPath: attackPower
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+        type: 2}
+      propertyPath: buffAttackPower
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
+        type: 2}
+      propertyPath: influenceAttackPower
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237a30f4ab94d224ebec37cbd0e29ada, type: 2}

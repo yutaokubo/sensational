@@ -7,12 +7,13 @@ public class PlayerBullet : MonoBehaviour {
 
     //用途：プレイヤーの弾のスクリプト
     //作成者：大久保
-    //最終更新日：2019/07/12
+    //最終更新日：2019/08/10
     //最終更新者：大久保
-    //更新内容：カメラから出たら消滅
+    //更新内容：攻撃力追加
 
 
     public float speed;//進む速度
+    public int power;//攻撃力
     private Vector3 velocity;//移動量
 
 	// Use this for initialization
