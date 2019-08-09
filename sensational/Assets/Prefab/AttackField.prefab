@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endTime: 1
+  power: 20
 --- !u!212 &212583751406491962
 SpriteRenderer:
   m_ObjectHideFlags: 1

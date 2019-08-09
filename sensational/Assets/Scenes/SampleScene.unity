@@ -454,47 +454,6 @@ Prefab:
       propertyPath: influenceGauge
       value: 
       objectReference: {fileID: 1186375905}
-    - target: {fileID: 212855923458001902, guid: 237a30f4ab94d224ebec37cbd0e29ada,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
-        type: 2}
-      propertyPath: influenceAttackField
-      value: 
-      objectReference: {fileID: 114320289925375306, guid: 181e160c638b29b47a45f794a299096b,
-        type: 2}
-    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
-        type: 2}
-      propertyPath: buffBulletPower
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
-        type: 2}
-      propertyPath: attackPower
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
-        type: 2}
-      propertyPath: buffAttackPower
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090462392365814, guid: 237a30f4ab94d224ebec37cbd0e29ada,
-        type: 2}
-      propertyPath: influenceAttackPower
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 61077883919674894, guid: 237a30f4ab94d224ebec37cbd0e29ada,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50864847430120962, guid: 237a30f4ab94d224ebec37cbd0e29ada,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237a30f4ab94d224ebec37cbd0e29ada, type: 2}
   m_IsPrefabAsset: 0
@@ -1060,7 +1019,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4702467432365768, guid: 6663a2d095eebad43b0b5d9f6fd8db06, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.13
+      value: 5.09
       objectReference: {fileID: 0}
     - target: {fileID: 4702467432365768, guid: 6663a2d095eebad43b0b5d9f6fd8db06, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1749,7 +1708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1966505458
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,45 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1653034144412436}
+  m_RootGameObject: {fileID: 1573362370098474}
   m_IsPrefabAsset: 1
---- !u!1 &1653034144412436
+--- !u!1 &1573362370098474
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4360790337724936}
-  - component: {fileID: 212869880125083276}
-  - component: {fileID: 114731877574783552}
-  - component: {fileID: 58204343832188204}
+  - component: {fileID: 4176081575944604}
+  - component: {fileID: 70969252751863212}
+  - component: {fileID: 212482886093462068}
+  - component: {fileID: 114247682686287530}
   m_Layer: 0
-  m_Name: BossHomingBullet
-  m_TagString: Untagged
+  m_Name: Enemy2AttackField
+  m_TagString: EnemyAttackField
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4360790337724936
+--- !u!4 &4176081575944604
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653034144412436}
+  m_GameObject: {fileID: 1573362370098474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3384435, y: 2.2519364, z: -0.20005052}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58204343832188204
-CircleCollider2D:
+--- !u!70 &70969252751863212
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653034144412436}
+  m_GameObject: {fileID: 1573362370098474}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -55,29 +55,27 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1.4
---- !u!114 &114731877574783552
+  m_Size: {x: 0.33858514, y: 0.64}
+  m_Direction: 0
+--- !u!114 &114247682686287530
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653034144412436}
+  m_GameObject: {fileID: 1573362370098474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2597e495bbed436498de9e6d1f2e7ee7, type: 3}
+  m_Script: {fileID: 11500000, guid: 66d7589921936374f90eaee38ce66362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationFlag: 1
-  damage: 5
-  speed: 4
-  velocity: {x: 0, y: -100, z: 0}
---- !u!212 &212869880125083276
+  endTime: 0.5
+  power: 7
+--- !u!212 &212482886093462068
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653034144412436}
+  m_GameObject: {fileID: 1573362370098474}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -106,8 +104,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0cbf77fac1bd07e45a71845c71dc25ca, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 48e9121b06282714ca674f8e269b82db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

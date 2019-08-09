@@ -10,6 +10,7 @@ TagManager:
   - PlayerAttackField
   - PlayerBullet
   - Enemy
+  - EnemyAttackField
   layers:
   - Default
   - TransparentFX

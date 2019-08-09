@@ -472,9 +472,18 @@ public class Player : MonoBehaviour {
             SetHP(0);
         }
 
-        if(col.gameObject.tag == "EnemyBullet")
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "EnemyBullet")
         {
             col.gameObject.GetComponent<EnemyBulletBase>().AddDamage();
         }
+        if (col.gameObject.tag == "EnemyAttackField")
+        {
+            AddHP(-col.gameObject.GetComponent<EnemyAttackField>().power);
+        }
     }
+        
 }
