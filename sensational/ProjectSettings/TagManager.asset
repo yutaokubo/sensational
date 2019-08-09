@@ -8,6 +8,8 @@ TagManager:
   - GameOverArea
   - EnemyBullet
   - PlayerAttackField
+  - PlayerBullet
+  - Enemy
   layers:
   - Default
   - TransparentFX

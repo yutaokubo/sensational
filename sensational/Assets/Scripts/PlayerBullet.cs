@@ -9,7 +9,7 @@ public class PlayerBullet : MonoBehaviour {
     //作成者：大久保
     //最終更新日：2019/08/10
     //最終更新者：大久保
-    //更新内容：壁に当たって消えるように
+    //更新内容：敵に当たって消えるように
 
 
     public float speed;//進む速度
@@ -42,6 +42,10 @@ public class PlayerBullet : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Floor")
+        {
+            Destroy(gameObject);
+        }
+        if(col.gameObject.tag == "Enemy")
         {
             Destroy(gameObject);
         }

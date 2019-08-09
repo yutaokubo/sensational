@@ -13,8 +13,7 @@ public class Player : MonoBehaviour {
 
 
 
-    [Header("通常時の移動速度")]
-    [SerializeField]
+    [SerializeField, Header("通常時の移動速度")]
     private float speed;
     [Header("バフ後の移動速度")]
     [SerializeField]
@@ -24,56 +23,43 @@ public class Player : MonoBehaviour {
     private float direction;//方向。弾の発射方向を決める
     private float defaultScaleX;//初期のスケールXの数値。画像の方向切り替え用
 
-    [Header("通常時のジャンプ力")]
-    [SerializeField]
+    [SerializeField, Header("通常時のジャンプ力")]
     private float jumpPower;
-    [Header("バフ後のジャンプ力")]
-    [SerializeField]
+    [SerializeField, Header("バフ後のジャンプ力")]
     private float buffJumpPower;
     private float nowJumpPower;//現在のジャンプ力
     private bool isJump;//ジャンプ中か
 
-    [Header("遠距離攻撃の弾オブジェクト")]
-    [SerializeField]
+    [SerializeField, Header("遠距離攻撃の弾オブジェクト")]
     private PlayerBullet bullet;
 
-    [Header("遠距離攻撃の弾のスピード")]
-    [SerializeField]
+    [SerializeField, Header("遠距離攻撃の弾のスピード")]
     private float bulletSpeed;
     private int nowBulletPower;//現在の弾の威力
-    [Header("通常時の弾の威力")]
-    [SerializeField]
+    [SerializeField, Header("通常時の弾の威力")]
     private int bulletPower;
-    [Header("バフ時の弾の威力")]
-    [SerializeField]
+    [SerializeField, Header("バフ時の弾の威力")]
     private int buffBulletPower;
 
-    [Header("近距離攻撃の攻撃範囲オブジェクト")]
-    [SerializeField]
+    [SerializeField, Header("近距離攻撃の攻撃範囲オブジェクト")]
     private PlayerAttackField attackField;
-    [Header("画面全体攻撃の攻撃範囲オブジェクト")]
-    [SerializeField]
+    [SerializeField, Header("画面全体攻撃の攻撃範囲オブジェクト")]
     private PlayerAttackField influenceAttackField;
 
-    [Header("中心からの攻撃距離")]
-    [SerializeField]
+    [SerializeField, Header("中心からの攻撃距離")]
     private float attackDistance;
 
-    [Header("近距離攻撃継続時間")]
-    [SerializeField]
+    [SerializeField, Header("近距離攻撃継続時間")]
     private float attackTime;
     private float attackTimer;//攻撃判定用
 
     private int nowAttackPower;//現在の近接攻撃力
-    [Header("通常の近接攻撃力")]
-    [SerializeField]
+    [SerializeField, Header("通常の近接攻撃力")]
     private int attackPower;
-    [Header("バフ時の近接攻撃力")]
-    [SerializeField]
+    [SerializeField, Header("バフ時の近接攻撃力")]
     private int buffAttackPower;
 
-    [Header("画面全体攻撃の攻撃力")]
-    [SerializeField]
+    [SerializeField, Header("画面全体攻撃の攻撃力")]
     private int influenceAttackPower;
 
     private int hp;//体力
@@ -88,16 +74,13 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private Image influenceGauge;
 
-    [Header("秒間影響力回復量")]
-    [SerializeField]
+    [SerializeField, Header("秒間影響力回復量")]
     private float influenceRecoveryAmount;
 
-    [Header("バフ時影響力減少量")]
-    [SerializeField]
+    [SerializeField, Header("バフ時影響力減少量")]
     private float buffTimeRemoveInfluencePoint;
 
-    [Header("影響力のモード、Falseが全体攻撃,trueがバフ")]
-    [SerializeField]
+    [SerializeField, Header("影響力のモード、Falseが全体攻撃,trueがバフ")]
     public static bool influenceMode;
 
     private bool isBuff;//影響力によるバフがかかっているか
