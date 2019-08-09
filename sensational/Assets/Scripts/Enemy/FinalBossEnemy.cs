@@ -121,7 +121,7 @@ public class FinalBossEnemy : EnemyBase
             eState = FinalBossState.Move;
             time = 0;
         }
-        NormalMove(distance);
+        NormalMove(distance,moveSpeed);
         if (normalShotTiming < homingAttackNowTime)
         {
             foreach (var _shot in normalShot)
@@ -137,18 +137,6 @@ public class FinalBossEnemy : EnemyBase
             shortAttackInstance.transform.parent = transform;
             shortAttackInstance.transform.localPosition = new Vector3(shortAttack.position.x, shortAttack.position.y, 0);
             shortAttackNowTime = 0;
-        }
-    }
-    private void NormalMove(float distance)
-    {
-        //移動
-        if(distance>0)
-        {
-            transform.position += new Vector3(moveSpeed, 0, 0) * Time.deltaTime;
-        }
-        else
-        {
-            transform.position += new Vector3(-moveSpeed, 0, 0) * Time.deltaTime;
         }
     }
     #endregion

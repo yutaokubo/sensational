@@ -44,4 +44,18 @@ public abstract class EnemyBase : MonoBehaviour
             Damage(other.gameObject.GetComponent<PlayerAttackField>().power);
         }
     }
+
+    protected void NormalMove(float distance, float _speed)
+    {
+        //移動
+        if (distance > 0)
+        {
+            transform.position += new Vector3(_speed, 0, 0) * Time.deltaTime;
+        }
+        else
+        {
+            transform.position += new Vector3(-_speed, 0, 0) * Time.deltaTime;
+        }
+    }
+
 }

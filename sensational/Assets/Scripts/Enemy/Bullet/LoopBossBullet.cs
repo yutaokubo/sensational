@@ -19,7 +19,7 @@ public class LoopBossBullet : EnemyBulletBase
 
     private void Update () 
 	{
-        velocity = new Vector3(speed, 0, 0);
+        velocity = new Vector3(Mathf.Abs(speed), 0, 0);
         Move();
         OneLoopMove();
     }
