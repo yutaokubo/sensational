@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour {
 
@@ -89,7 +89,7 @@ public class TitleManager : MonoBehaviour {
         if (Input.GetButtonDown("Jump"))
         {
             ModeDecision();
-            EditorSceneManager.LoadScene("Stage1");
+            SceneManager.LoadScene("Stage1");
         }
     }
 }

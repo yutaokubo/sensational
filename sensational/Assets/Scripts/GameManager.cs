@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -58,7 +57,7 @@ public class GameManager : MonoBehaviour {
 
     void ReturnTitle()
     {
-        EditorSceneManager.LoadScene("Title");
+        SceneManager.LoadScene("Title");
     }
 
     public void ChangeScene()
@@ -71,22 +70,22 @@ public class GameManager : MonoBehaviour {
         switch(sceneName)
         {
             case "Stage1":
-                EditorSceneManager.LoadScene("Boss1");
+                SceneManager.LoadScene("Boss1");
                 break;
             case "Boss1":
-                EditorSceneManager.LoadScene("Stage2");
+                SceneManager.LoadScene("Stage2");
                 break;
             case "Stage2":
-                EditorSceneManager.LoadScene("Boss2");
+                SceneManager.LoadScene("Boss2");
                 break;
             case "Boss2":
-                EditorSceneManager.LoadScene("Stage3");
+                SceneManager.LoadScene("Stage3");
                 break;
             case "Stage3":
-                EditorSceneManager.LoadScene("Boss3");
+                SceneManager.LoadScene("Boss3");
                 break;
             case "Boss3":
-                EditorSceneManager.LoadScene("Title");
+                SceneManager.LoadScene("Title");
                 break;
         }
     }

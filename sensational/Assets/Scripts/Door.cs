@@ -20,7 +20,6 @@ public class Door : MonoBehaviour{
     {
         if (col.gameObject.tag == "Player")
         {
-            Debug.Log("Ok");
             gameManager.ChangeScene();
         }
 
