@@ -584,7 +584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   y: 0
   leftLimit: 0
-  rightLimit: 100
+  rightLimit: 5
 --- !u!1001 &1556906782
 Prefab:
   m_ObjectHideFlags: 0
