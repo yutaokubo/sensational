@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -51,5 +53,41 @@ public class GameManager : MonoBehaviour {
     {
         isGameOver = true;
         gameOverText.enabled = true;
+        Invoke("ReturnTitle", 1f);
+    }
+
+    void ReturnTitle()
+    {
+        EditorSceneManager.LoadScene("Title");
+    }
+
+    public void ChangeScene()
+    {
+        if (isGameOver)
+            return;
+
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        switch(sceneName)
+        {
+            case "Stage1":
+                EditorSceneManager.LoadScene("Boss1");
+                break;
+            case "Boss1":
+                EditorSceneManager.LoadScene("Stage2");
+                break;
+            case "Stage2":
+                EditorSceneManager.LoadScene("Boss2");
+                break;
+            case "Boss2":
+                EditorSceneManager.LoadScene("Stage3");
+                break;
+            case "Stage3":
+                EditorSceneManager.LoadScene("Boss3");
+                break;
+            case "Boss3":
+                EditorSceneManager.LoadScene("Title");
+                break;
+        }
     }
 }
