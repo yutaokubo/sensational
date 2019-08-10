@@ -77,6 +77,9 @@ public class Enemy2 : MonoBehaviour
     /// </summary>
     void RoutineTimerUpdate()
     {
+        if (!isStartUp)
+            return;
+
         routineTimer += Time.deltaTime;
         if (routineTimer >= moveTime && routineTimer < moveTime + waitTime)//移動を終えたら
         {

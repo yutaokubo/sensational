@@ -89,7 +89,7 @@ public class TitleManager : MonoBehaviour {
         if (Input.GetButtonDown("Jump"))
         {
             ModeDecision();
-            EditorSceneManager.LoadScene("SampleScene");
+            EditorSceneManager.LoadScene("Stage1");
         }
     }
 }
