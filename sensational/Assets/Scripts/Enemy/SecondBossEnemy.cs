@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//ボス1
-
-public class FirstBossEnemy : EnemyBase
+public class SecondBossEnemy : EnemyBase
 {
-    [SerializeField]
-    private float shotTiming = 1;//弾のタイミング
+    [SerializeField,Header("特殊技の発射タイミング")]
+    private float shotTiming = 3;//弾のタイミング
     [SerializeField, Header("通常弾の発射タイミング")]
     private float normalShotTiming = 2.0f;
     [SerializeField, Header("近距離攻撃の間隔")]
@@ -17,8 +15,13 @@ public class FirstBossEnemy : EnemyBase
     private float moveSpeed = 1;
 
 
+    [SerializeField,Header("特殊弾")]
+    private EnemyBulletBase specialShot;
+    [SerializeField, Header("特殊弾2")]
+    private List<BulletStruct> specialShot_Two = new List<BulletStruct>();
     [SerializeField]
-    private List<BulletStruct> firstShot = new List<BulletStruct>();//ショット1のリスト
+    private float yPos;
+
     [SerializeField]
     private List<BulletStruct> normalShot = new List<BulletStruct>();//ホーミング
     [SerializeField]
@@ -46,33 +49,52 @@ public class FirstBossEnemy : EnemyBase
         homingAttackNowTime = 0;
         shortAttackNowTime = 0;
     }
+    private int nowShot = 0;
     //ループ
     private void Update()
     {
         if (time > shotTiming)
         {
-            foreach (var _shot in firstShot)
+            int num = Random.Range(3, 6);
+			float distance = PlayerManager.Instance.PlayerInstance.transform.position.x - transform.position.x;
+
+            float x = (GetCameraEdgeBottomRight().x - GetCameraEdgeTopLeft().x) / (num+1);
+            if(distance> 0) Shot(specialShot_Two, transform.position, -1);
+            else Shot(specialShot_Two, transform.position);
+            for (int i = 0; i < num; i++)
             {
-                var shotInstance = Instantiate(_shot.bulletBase, transform.position + new Vector3(_shot.position.x, _shot.position.y, 0), Quaternion.identity);
-                //プレイヤーが右側にいたら逆に打つ
-                if (transform.position.x < PlayerManager.Instance.PlayerInstance.transform.position.x)
-                {
-                    shotInstance.speed *= -1;
-                }
+                Instantiate(specialShot, new Vector3(GetCameraEdgeTopLeft().x + x * (i+1) + Random.Range(-x+0.5f, x-0.5f), yPos, 0), Quaternion.identity);
             }
             time = 0;
         }
         time += Time.deltaTime;
         NormalMover();
     }
+    private void Shot(List<BulletStruct> shot, Vector3? _plus = null,int _k = 1,float _random = 0 )
+    {
+        foreach (var _shot in shot)
+        {
+            float rand = Random.Range(-_random, _random);
+			EnemyBulletBase shotInstance;
+			if(_plus!=null)
+			{
+                shotInstance = Instantiate(_shot.bulletBase, new Vector3(_shot.position.x + _plus.Value.x, _shot.position.y + _plus.Value.y, 0 + _plus.Value.z), Quaternion.identity);
+            }
+			else
+			{
+                shotInstance = Instantiate(_shot.bulletBase, new Vector3(_shot.position.x, _shot.position.y, 0), Quaternion.identity);
+            }
+            shotInstance.speed *= _k;
+        }
+    }
     private void NormalMover()
     {
         float distance = PlayerManager.Instance.PlayerInstance.transform.position.x - transform.position.x;
-        if (distance > 0)
+        if (distance > 0f)
         {
             gameObject.transform.localScale = new Vector3(-Mathf.Abs(gameObject.transform.localScale.x), gameObject.transform.localScale.y, gameObject.transform.localScale.z);
         }
-        else if (distance < 0)
+        else if (distance < 0f)
         {
             gameObject.transform.localScale = new Vector3(Mathf.Abs(gameObject.transform.localScale.x), gameObject.transform.localScale.y, gameObject.transform.localScale.z);
         }
@@ -103,4 +125,22 @@ public class FirstBossEnemy : EnemyBase
             shortAttackNowTime = 0;
         }
     }
+    #region カメラ座標(端)取得
+    private Vector2 GetCameraEdgeTopLeft()
+    {
+		//左上取得
+        Vector2 topLeft = Camera.main.ScreenToWorldPoint(Vector3.zero);
+        topLeft.Scale(new Vector3(1f, -1f, 1f));
+        return topLeft;
+    }
+    private Vector2 GetCameraEdgeBottomRight()
+    {
+        // 画面の右下を取得
+        Vector3 bottomRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+        // 上下反転させる
+        bottomRight.Scale(new Vector3(1f, -1f, 1f));
+        return bottomRight;
+    }
+    #endregion
+
 }

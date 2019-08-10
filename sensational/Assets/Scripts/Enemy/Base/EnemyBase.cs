@@ -48,11 +48,11 @@ public abstract class EnemyBase : MonoBehaviour
     protected void NormalMove(float distance, float _speed)
     {
         //移動
-        if (distance > 0)
+        if (distance > 0.5f)
         {
             transform.position += new Vector3(_speed, 0, 0) * Time.deltaTime;
         }
-        else
+        else if(distance<-0.5f)
         {
             transform.position += new Vector3(-_speed, 0, 0) * Time.deltaTime;
         }

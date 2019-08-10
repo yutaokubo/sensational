@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationFlag: 1
-  damage: 5
+  damage: 15
   speed: 4
   velocity: {x: 0, y: -100, z: 0}
 --- !u!212 &212754093915048572
